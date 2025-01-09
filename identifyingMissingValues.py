@@ -48,3 +48,11 @@ print(imputed_data)
 
 print("------------------------------------------")
 print(df.fillna(df.mean()))
+
+df = pd.DataFrame([['green', 'M', 10.1, 'class2'],
+                   ['red', 'L', 13.5, 'class1'],
+                   ['blue', 'XL', 15.5, 'class2']])
+                
+df.columns = ['color', 'size', 'price', 'classlabel']
+print("------------------------------------------")
+print(df)
