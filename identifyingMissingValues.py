@@ -56,3 +56,52 @@ df = pd.DataFrame([['green', 'M', 10.1, 'class2'],
 df.columns = ['color', 'size', 'price', 'classlabel']
 print("------------------------------------------")
 print(df)
+
+print("------------------------------------------")
+size_mapping = {'XL': 3,
+                'L': 2,
+                'M': 1}
+
+df['size'] = df['size'].map(size_mapping)
+
+print(df)
+print("------------------------------------------")
+
+inv_size_mapping = {v: k for k, v in size_mapping.items()}
+df['size'].map(inv_size_mapping)
+
+print(df['size'].map(inv_size_mapping))
+
+
+import numpy as np
+class_mapping = {label: idx for idx, label in
+                enumerate(np.unique(df['classlabel']))}
+
+print("----------------------------------")
+print(class_mapping)
+
+# now we use the mapping dictionary to transform the class labels into integers
+print("---------------------------------")
+df['classlabel'] = df['classlabel'].map(class_mapping)
+print(df)
+
+# now we reverse back to the original setup
+inv_class_mapping = {v: k for k, v in class_mapping.items()}
+df['classlabel'] = df['classlabel'].map(inv_class_mapping)
+print("--------------------------------")
+print(df)
+
+# labelEncoder library 
+from sklearn.preprocessing import LabelEncoder
+class_le = LabelEncoder()
+y = class_le.fit_transform(df['classlabel'].values)
+print(y)
+print("--------------------------------")
+class_le.inverse_transform(y)
+print(class_le.inverse_transform(y))
+
+# Performing the hot encoding on nominal features
+X = df[['color', 'size', 'price']].values
+color_le = LabelEncoder()
+X[:, 0] = color_le.fit_transform(X[:, 0])
+print(X)
