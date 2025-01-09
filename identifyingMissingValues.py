@@ -22,3 +22,16 @@ print(df.dropna(axis=1))
 # Print after dropping rows where all values are NaN
 print("\nDataFrame after dropping rows where all values are NaN:")
 print(df.dropna(how='all'))
+
+print("------------------------------------------")
+
+print(df.isnull().sum())
+
+print("------------------------------------------")
+print(df.values)
+
+print("Drop rows that have fewer than 4 real values")
+print(df.dropna(thresh=4))
+
+print("Only drop rows where NaN appear in specific columns (here is 2)")
+print(df.dropna(subset=[2]))
