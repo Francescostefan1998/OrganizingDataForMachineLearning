@@ -112,4 +112,17 @@ color_ohe = OneHotEncoder()
 color_ohe.fit_transform(X[:, 0].reshape(-1, 1)).toarray()
 print("----------------OneHotEncoder----------------")
 print(color_ohe.fit_transform(X[:, 0].reshape(-1, 1)).toarray())
-print("--------------------------------")
+print("----------------Transforming the entire dataset----------------")
+
+from sklearn.compose import ColumnTransformer
+X = df[['color', 'size', 'price']].values
+c_transf = ColumnTransformer([
+    ('onehot', OneHotEncoder(), [0]),
+    ('nothing', 'passthrough', [1, 2])
+])
+c_transf.fit_transform(X).astype(float)
+print(c_transf.fit_transform(X).astype(float))
+print("---------------------Using pandas dummies to organize the array-----------------------------------------")
+print(pd.get_dummies(df[['price', 'color', 'size']]))
+print("---------------------Using pandas dummies to organize the array-----------------------------------------")
+print(pd.get_dummies(df[['price', 'color', 'size']], dtype=float))
