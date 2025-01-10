@@ -126,3 +126,11 @@ print("---------------------Using pandas dummies to organize the array----------
 print(pd.get_dummies(df[['price', 'color', 'size']]))
 print("---------------------Using pandas dummies to organize the array-----------------------------------------")
 print(pd.get_dummies(df[['price', 'color', 'size']], dtype=float))
+print("---------------------Drop first-----------------------------------------")
+print(pd.get_dummies(df[['price', 'color', 'size']], drop_first = True))
+print("---------------------Eliminating reduntant column---------------------------------")
+color_ohe=OneHotEncoder(categories='auto', drop='first')
+c_transf=ColumnTransformer([('onehot', color_ohe, [0]),
+                            ('nothing', 'passthrough', [1, 2])
+])
+print(c_transf.fit_transform(X).astype(float))
