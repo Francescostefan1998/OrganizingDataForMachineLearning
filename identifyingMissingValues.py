@@ -105,3 +105,11 @@ X = df[['color', 'size', 'price']].values
 color_le = LabelEncoder()
 X[:, 0] = color_le.fit_transform(X[:, 0])
 print(X)
+
+from sklearn.preprocessing import OneHotEncoder
+X = df[['color', 'size', 'price']].values
+color_ohe = OneHotEncoder()
+color_ohe.fit_transform(X[:, 0].reshape(-1, 1)).toarray()
+print("----------------OneHotEncoder----------------")
+print(color_ohe.fit_transform(X[:, 0].reshape(-1, 1)).toarray())
+print("--------------------------------")
