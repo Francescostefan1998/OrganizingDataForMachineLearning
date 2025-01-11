@@ -26,3 +26,30 @@ print(df_wine.head())
 print("------Dataset with the colums named---------------")
 print(df_wine)
 
+from sklearn.model_selection import train_test_split
+X, y = df_wine.iloc[:, 1:].values, df_wine.iloc[:, 0].values
+X_train, X_test, y_train, y_test = \
+    train_test_split(X, y, test_size=0.3, random_state=0, stratify=y)
+
+print("-----X train---------------------")
+print(X_train)
+print("-----y train---------------------")
+print(y_train)
+print("-----X test---------------------")
+print(X_test)
+print("-----y test---------------------")
+print(y_test)
+
+# Normalizing the data
+from sklearn.preprocessing import MinMaxScaler
+mms = MinMaxScaler()
+X_train_norm = mms.fit_transform(X_train)
+X_test_norm = mms.fit_transform(X_test)
+
+ex = np.array([0, 1, 2, 3, 4, 5])
+print('standardized:', (ex - ex.mean()) / ex.std())
+print('normalized:', (ex - ex.min()) / (ex.max() -ex.min()))
+from sklearn.preprocessing import StandardScaler
+stdsc = StandardScaler()
+X_train_std = stdsc.fit_transform(X_train)
+X_test_std = stdsc.fit_transform(X_test)
