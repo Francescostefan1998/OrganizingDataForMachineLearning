@@ -134,3 +134,4 @@ c_transf=ColumnTransformer([('onehot', color_ohe, [0]),
                             ('nothing', 'passthrough', [1, 2])
 ])
 print(c_transf.fit_transform(X).astype(float))
+
