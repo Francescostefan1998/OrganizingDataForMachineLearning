@@ -26,7 +26,7 @@ class SBS:
             for p in combinations(self.indices_, r=dim - 1):
                 score = self._calc_score(X_train, y_train, X_test, y_test, p)
                 scores.append(score)
-                subsets.append(score)
+                subsets.append(p)
             
             best = np.argmax(scores)
             self.indices_ = subsets[best]
