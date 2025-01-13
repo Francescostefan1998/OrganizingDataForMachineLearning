@@ -42,8 +42,17 @@ from sklearn.preprocessing import StandardScaler
 stdsc = StandardScaler()
 X_train_std = stdsc.fit_transform(X_train)
 X_test_std = stdsc.fit_transform(X_test)
-print(X_train_std)
+# print(X_train_std)
 from sklearn.neighbors import KNeighborsClassifier
 knn = KNeighborsClassifier(n_neighbors=5)
 sbs = SBS(knn, k_features=1)
 sbs.fit(X_train_std, y_train)
+
+k_feat = [len(k) for k in sbs.subsets_]
+plt.plot(k_feat, sbs.scores_, marker='o')
+plt.ylim([0.7, 1.02])
+plt.ylabel('Accuracy')
+plt.xlabel('Number of features')
+plt.grid()
+plt.tight_layout()
+plt.show()
