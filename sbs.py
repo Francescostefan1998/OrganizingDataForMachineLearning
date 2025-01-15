@@ -15,19 +15,20 @@ class SBS:
     def fit(self, X, y):
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=self.test_size, random_state=self.random_state)
         dim = X_train.shape[1]
-        print(f'Dim : {dim}')
+        # print(f'Dim : {dim}')
         self.indices_ = tuple(range(dim))
-        print(f'Indices : {self.indices_}')
+        # print(f'Indices : {self.indices_}')
         self.subsets_ = [self.indices_]
-        print(f'Subsets : {self.subsets_}')
+        # print(f'Subsets : {self.subsets_}')
         score = self._calc_score(X_train, y_train, X_test, y_test, self.indices_)
-        print(f'Score : {score}')
+        # print(f'Score : {score}')
         self.scores_ = [score]
         while dim > self.k_features:
             scores = []
             subsets = []
 
             for p in combinations(self.indices_, r=dim - 1):
+                # print(f'P: {p}')
                 score = self._calc_score(X_train, y_train, X_test, y_test, p)
                 scores.append(score)
                 subsets.append(p)
@@ -48,8 +49,10 @@ class SBS:
     def _calc_score(self, X_train, y_train, X_test, y_test, indices):
         self.estimator.fit(X_train[:, indices], y_train)
         y_pred = self.estimator.predict(X_test[:, indices])
-        print(f'Y prediction: {y_pred}')
+        # print(f'Indices: {indices}')
+        # print(f'Y pred: {y_pred}')
+        # print(f'Y test: {y_test}')
         score = self.scoring(y_test, y_pred)
-        print(f'Score from the prediction: {score}')
+        # print(f'Score from the prediction: {score}')
         return score
     

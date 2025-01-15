@@ -31,12 +31,7 @@ X, y = df_wine.iloc[:, 1:].values, df_wine.iloc[:, 0].values
 X_train, X_test, y_train, y_test = \
     train_test_split(X, y, test_size=0.3, random_state=0, stratify=y)
 
-# from sklearn.preprocessing import MinMaxScaler
-# mms = MinMaxScaler()
-# X_train_norm = mms.fit_transform(X_train)
-# X_test_norm = mms.fit_transform(X_test)
 
-# ex = np.array([0, 1, 2, 3, 4, 5])
 
 from sklearn.preprocessing import StandardScaler
 stdsc = StandardScaler()
@@ -49,6 +44,9 @@ sbs = SBS(knn, k_features=1)
 sbs.fit(X_train_std, y_train)
 
 k_feat = [len(k) for k in sbs.subsets_]
+# print(f'K features : {k_feat}')
+# print(f'Y scores : {sbs.scores_}')
+
 plt.plot(k_feat, sbs.scores_, marker='o')
 plt.ylim([0.7, 1.02])
 plt.ylabel('Accuracy')
@@ -56,3 +54,13 @@ plt.xlabel('Number of features')
 plt.grid()
 plt.tight_layout()
 plt.show()
+
+k3 = list(sbs.subsets_[10])
+print(df_wine.columns[1:][k3])
+
+knn.fit(X_train_std, y_train)
+print('Training accuracy:', knn.score(X_train_std, y_train))
+print('Test accuracy:', knn.score(X_test_std, y_test))
+knn.fit(X_train_std[:, k3], y_train)
+print('Training accuracy:', knn.score(X_train_std[:, k3], y_train))
+print('Test accuracy:', knn.score(X_test_std[:, k3], y_test))
