@@ -71,6 +71,7 @@ feat_labels = df_wine.columns[1:]
 forest = RandomForestClassifier(n_estimators=500, random_state=1)
 forest.fit(X_train, y_train)
 importances = forest.feature_importances_
+print('Fetures importances: ', importances)
 indices = np.argsort(importances)[::-1]
 for f in range(X_train.shape[1]):
     print("%2d) %-*s %f" % (f + 1, 30, feat_labels[indices[f]], importances[indices[f]]))
@@ -81,3 +82,10 @@ plt.xticks(range(X_train.shape[1]), feat_labels[indices], rotation=90)
 plt.xlim([-1, X_train.shape[1]])
 plt.tight_layout()
 plt.show()
+
+from sklearn.feature_selection import SelectFromModel
+sfm = SelectFromModel(forest, threshold=0.1, prefit=True)
+X_selected = sfm.transform(X_train)
+print('Number of features that meeet this threshold', 'criterion:', X_selected.shape[1])
+for f in range(X_selected.shape[1]):
+    print("%2d) %-*s %f" % (f + 1, 30, feat_labels[indices[f]], importances[indices[f]]))
