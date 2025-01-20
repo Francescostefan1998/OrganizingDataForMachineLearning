@@ -46,3 +46,8 @@ w = np.hstack((eigen_pairs[0][1][:, np.newaxis],
                 eigen_pairs[1][1][:, np.newaxis]))
 
 print('Matrix W:\n', w)
+
+X_train_std[0].dot(w)
+print(X_train_std[0].dot(w))
+X_train_pca = X_train_std.dot(w)
+print(X_train_pca)
