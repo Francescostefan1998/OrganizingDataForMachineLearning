@@ -24,15 +24,15 @@ var_exp = [(i/tot) for i in
            sorted(eigen_vals, reverse=True)]
 cum_var_exp = np.cumsum(var_exp)
 import matplotlib.pyplot as plt
-plt.bar(range(1,14), var_exp, align='center',
-        label='Individual explained variance')
-plt.step(range(1,14), cum_var_exp, where='mid', 
-         label='Cumulative explained variance')
-plt.ylabel('Explained variance ratio')
-plt.xlabel('Principal component index')
-plt.legend(loc='best')
-plt.tight_layout()
-plt.show()
+# plt.bar(range(1,14), var_exp, align='center',
+#         label='Individual explained variance')
+# plt.step(range(1,14), cum_var_exp, where='mid', 
+#          label='Cumulative explained variance')
+# plt.ylabel('Explained variance ratio')
+# plt.xlabel('Principal component index')
+# plt.legend(loc='best')
+# plt.tight_layout()
+# plt.show()
 
 
 
@@ -55,8 +55,8 @@ print(X_train_pca)
 colors = ['r', 'b', 'g']
 markers = ['o', 's', '^']
 for l, c, m in zip(np.unique(y_train), colors, markers):
-    plt.scatter(X_train_pca[y_train==1, 0],
-                X_train_pca[y_train==1, 1],
+    plt.scatter(X_train_pca[y_train==l, 0],
+                X_train_pca[y_train==l, 1],
                 c=c, label=f'Class {l}', marker=m)
     
 plt.xlabel('PC 1')
