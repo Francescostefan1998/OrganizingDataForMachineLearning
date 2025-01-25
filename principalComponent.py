@@ -51,3 +51,16 @@ X_train_std[0].dot(w)
 print(X_train_std[0].dot(w))
 X_train_pca = X_train_std.dot(w)
 print(X_train_pca)
+
+colors = ['r', 'b', 'g']
+markers = ['o', 's', '^']
+for l, c, m in zip(np.unique(y_train), colors, markers):
+    plt.scatter(X_train_pca[y_train==1, 0],
+                X_train_pca[y_train==1, 1],
+                c=c, label=f'Class {l}', marker=m)
+    
+plt.xlabel('PC 1')
+plt.ylabel('PC 2')
+plt.legend(loc='lower left')
+plt.tight_layout()
+plt.show()
