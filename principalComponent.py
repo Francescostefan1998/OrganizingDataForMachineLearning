@@ -1,3 +1,6 @@
+
+
+
 import pandas as pd
 df_wine = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/wine/wine.data',
                       header=None)
@@ -135,3 +138,15 @@ pca = PCA(n_components=None)
 X_train_pca = pca.fit_transform(X_train_std)
 pca.explained_variance_ratio_
 print(pca.explained_variance_ratio_)
+
+# we want to find the correlation between features and pca
+# we compute the 13x13  diminsional loadings matrix by multiplying the eigenvectors by the square root of the eigenvalues
+loadings = eigen_vecs * np.sqrt(eigen_vals)
+fig, ax = plt.subplots()
+ax.bar(range(13), loadings[:, 0], align='center')
+ax.set_ylabel('Loadings for PC 1')
+ax.set_xticks(range(13))
+ax.set_xticklabels(df_wine.columns[1:], rotation = 90)
+plt.ylim([-1, 1])
+plt.tight_layout()
+plt.show()
