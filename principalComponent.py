@@ -107,46 +107,64 @@ def plot_decision_regions(X, y, classifier, test_idx=None,
 #                     linewidth=1, marker='o',
 #                     s=100, label='Test set')
         
-from sklearn.linear_model import LogisticRegression 
-from sklearn.decomposition import PCA
-# initializing the PCA transformer and logistic regression estimator
-pca = PCA(n_components=2)
-lr = LogisticRegression(multi_class='ovr',
-                        random_state=1,
-                        solver='lbfgs')
+# from sklearn.linear_model import LogisticRegression 
+# from sklearn.decomposition import PCA
+# # initializing the PCA transformer and logistic regression estimator
+# pca = PCA(n_components=2)
+# lr = LogisticRegression(multi_class='ovr',
+#                         random_state=1,
+#                         solver='lbfgs')
 # dimensionality reduction
-X_train_pca = pca.fit_transform(X_train_std)
-X_test_pca = pca.fit_transform(X_test_std)
-# fitting the logistic regression model on the reduced dataset:
-lr.fit(X_train_pca, y_train)
-plot_decision_regions(X_train_pca, y_train, classifier=lr)
-plt.xlabel('PC 1')
-plt.ylabel('PC 2')
-plt.legend(loc='lower left')
-plt.tight_layout()
-plt.show()
+# X_train_pca = pca.fit_transform(X_train_std)
+# X_test_pca = pca.fit_transform(X_test_std)
+# # fitting the logistic regression model on the reduced dataset:
+# lr.fit(X_train_pca, y_train)
+# plot_decision_regions(X_train_pca, y_train, classifier=lr)
+# plt.xlabel('PC 1')
+# plt.ylabel('PC 2')
+# plt.legend(loc='lower left')
+# plt.tight_layout()
+# plt.show()
 
-# test 
-plot_decision_regions(X_test_pca, y_test, classifier=lr)
-plt.xlabel('PC 1')
-plt.ylabel('PC 2')
-plt.legend(loc='lower left')
-plt.tight_layout()
-plt.show()
+# # test 
+# plot_decision_regions(X_test_pca, y_test, classifier=lr)
+# plt.xlabel('PC 1')
+# plt.ylabel('PC 2')
+# plt.legend(loc='lower left')
+# plt.tight_layout()
+# plt.show()
 
-pca = PCA(n_components=None)
-X_train_pca = pca.fit_transform(X_train_std)
-pca.explained_variance_ratio_
-print(pca.explained_variance_ratio_)
+# pca = PCA(n_components=None)
+# X_train_pca = pca.fit_transform(X_train_std)
+# pca.explained_variance_ratio_
+# print(pca.explained_variance_ratio_)
 
-# we want to find the correlation between features and pca
-# we compute the 13x13  diminsional loadings matrix by multiplying the eigenvectors by the square root of the eigenvalues
-loadings = eigen_vecs * np.sqrt(eigen_vals)
-fig, ax = plt.subplots()
-ax.bar(range(13), loadings[:, 0], align='center')
-ax.set_ylabel('Loadings for PC 1')
-ax.set_xticks(range(13))
-ax.set_xticklabels(df_wine.columns[1:], rotation = 90)
-plt.ylim([-1, 1])
-plt.tight_layout()
-plt.show()
+# # we want to find the correlation between features and pca
+# # we compute the 13x13  diminsional loadings matrix by multiplying the eigenvectors by the square root of the eigenvalues
+# loadings = eigen_vecs * np.sqrt(eigen_vals)
+# fig, ax = plt.subplots()
+# ax.bar(range(13), loadings[:, 0], align='center')
+# ax.set_ylabel('Loadings for PC 1')
+# ax.set_xticks(range(13))
+# ax.set_xticklabels(df_wine.columns[1:], rotation = 90)
+# plt.ylim([-1, 1])
+# plt.tight_layout()
+# plt.show()
+
+# sklearn_loadings = pca.components_.T * np.sqrt(pca.explained_variance_)
+# fig, ax = plt.subplots()
+# ax.bar(range(13), sklearn_loadings[:, 0], align='center')
+# ax.set_ylabel('Loadings fro PC 1')
+# ax.set_xticks(range(13))
+# ax.set_xticklabels(df_wine.columns[1:], rotation=90)
+# plt.ylim([-1, 1])
+# plt.tight_layout()
+# plt.show()
+print("------------------------------three class labels ------------------------------")
+np.set_printoptions(precision=4)
+mean_vecs = []
+for label in range(1, 4):
+    mean_vecs.append(np.mean(
+        X_train_std[y_train==label], axis=0))
+    print(f'MV {label}: {mean_vecs[label - 1]}\n')
+    
