@@ -228,3 +228,6 @@ plt.ylim([-0.1, 1.1])
 plt.legend(loc='best')
 plt.tight_layout()
 plt.show()
+
+w = np.hstack((eigen_pairs[0][1][:, np.newaxis].real, eigen_pairs[1][1][:, np.newaxis].real))
+print('Matrix W:\n', w)
