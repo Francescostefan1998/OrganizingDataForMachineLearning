@@ -264,3 +264,12 @@ plt.ylabel('LD 2')
 plt.legend(loc='lower left')
 plt.tight_layout()
 plt.show()
+
+X_test_lda= lda.transform(X_test_std)
+plot_decision_regions(X_test_lda, y_test, classifier=lr)
+plt.xlabel('LD 1')
+plt.ylabel('LD 2')
+plt.legend(loc='lower left')
+plt.tight_layout()
+plt.show()
+
