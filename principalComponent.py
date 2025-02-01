@@ -107,7 +107,7 @@ def plot_decision_regions(X, y, classifier, test_idx=None,
 #                     linewidth=1, marker='o',
 #                     s=100, label='Test set')
         
-# from sklearn.linear_model import LogisticRegression 
+from sklearn.linear_model import LogisticRegression 
 # from sklearn.decomposition import PCA
 # # initializing the PCA transformer and logistic regression estimator
 # pca = PCA(n_components=2)
@@ -245,5 +245,22 @@ for l, c, m in zip(np.unique(y_train), colors, markers):
 plt.xlabel('LD 1')
 plt.ylabel('LD 2')
 plt.legend(loc= 'lower right')
+plt.tight_layout()
+plt.show()
+
+# LDA via skikit-learn
+
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
+lda = LDA(n_components=2)
+X_train_lda= lda.fit_transform(X_train_std, y_train)
+
+
+# see how logistic regression classifier handles the lower-diminsional training dataset
+lr = LogisticRegression(multi_class='ovr', random_state=1, solver='lbfgs')
+lr = lr.fit(X_train_lda, y_train)
+plot_decision_regions(X_train_lda, y_train, classifier=lr)
+plt.xlabel('LD 1')
+plt.ylabel('LD 2')
+plt.legend(loc='lower left')
 plt.tight_layout()
 plt.show()
