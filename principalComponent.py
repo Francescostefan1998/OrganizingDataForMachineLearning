@@ -275,9 +275,25 @@ X_train_lda= lda.fit_transform(X_train_std, y_train)
 
 from sklearn.datasets import load_digits
 digits = load_digits()
-fig, ax = plt.subplots(1, 6)
-for i in range(6):
+fig, ax = plt.subplots(1, 4)
+for i in range(4):
     ax[i].imshow(digits.images[i], cmap='Greys')
 
 plt.show()
+
+digits.data.shape
+print(digits.data.shape)
+y_digits = digits.target
+X_digits = digits.data
+print("X_digits: ", X_digits)
+print("-------------------------------------------------------------------------")
+print(f'y_digits: {y_digits}')
+
+from sklearn.manifold import TSNE
+# the n_components = 2 will decide that is goin to be a 2 dimensional space
+tsne = TSNE(n_components=2, init='pca', random_state=123)
+X_digits_tsne = tsne.fit_transform(X_digits)
+print("---------------------------After tsne transformation------------------------------------")
+print(X_digits_tsne)
+
 
