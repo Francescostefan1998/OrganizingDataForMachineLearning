@@ -297,3 +297,23 @@ print("---------------------------After tsne transformation---------------------
 print(X_digits_tsne)
 
 
+import matplotlib.patheffects as PathEffects
+def plot_projection(x, colors):
+
+    f = plt.figure(figsize=(8,8))
+    ax = plt.subplot(aspect='equal')
+    for i in range(10):
+        plt.scatter(x[colors == i, 0],
+                    x[colors == i, 1])
+
+    for i in range(10):
+        xtext, ytext = np.median(x[colors == i, :], axis=0)
+        txt = ax.text(xtext, ytext, str(i), fontsize=24)
+        txt.set_path_effects([
+            PathEffects.Stroke(linewidth=5, foreground="w"),
+            PathEffects.Normal()])
+
+
+# Notice that the t-SNE is an unsupervized method so we are using the class labels just for visualization purposes
+plot_projection(X_digits_tsne, y_digits)
+plt.show()
