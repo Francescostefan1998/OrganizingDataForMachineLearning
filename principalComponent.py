@@ -213,40 +213,40 @@ eigen_pairs = [(np.abs(eigen_vals[i]), eigen_vecs[:, i])
 eigen_pairs = sorted(eigen_pairs,
             key=lambda k: k[0], reverse=True)
 
-print('Eigenvalues in descending order:\n')
-for eigen_val in eigen_pairs:
-    print(eigen_val[0])
+# print('Eigenvalues in descending order:\n')
+# for eigen_val in eigen_pairs:
+#     print(eigen_val[0])
 
-tot = sum(eigen_vals.real)
-discr = [(i / tot) for i in sorted(eigen_vals.real, reverse=True)]
-cum_discr = np.cumsum(discr)
-plt.bar(range(1,14), discr, align='center', label='Individual discriminability')
-plt.step(range(1,14), cum_discr, where= 'mid', label='Cumulative discriminability')
-plt.ylabel('"Discriminability" ratio')
-plt.xlabel('Linear Discriminants')
-plt.ylim([-0.1, 1.1])
-plt.legend(loc='best')
-plt.tight_layout()
-plt.show()
+# tot = sum(eigen_vals.real)
+# discr = [(i / tot) for i in sorted(eigen_vals.real, reverse=True)]
+# cum_discr = np.cumsum(discr)
+# plt.bar(range(1,14), discr, align='center', label='Individual discriminability')
+# plt.step(range(1,14), cum_discr, where= 'mid', label='Cumulative discriminability')
+# plt.ylabel('"Discriminability" ratio')
+# plt.xlabel('Linear Discriminants')
+# plt.ylim([-0.1, 1.1])
+# plt.legend(loc='best')
+# plt.tight_layout()
+# plt.show()
 
-w = np.hstack((eigen_pairs[0][1][:, np.newaxis].real, eigen_pairs[1][1][:, np.newaxis].real))
-print('Matrix W:\n', w)
+# w = np.hstack((eigen_pairs[0][1][:, np.newaxis].real, eigen_pairs[1][1][:, np.newaxis].real))
+# print('Matrix W:\n', w)
 
 # using the transformation matrix W previously created we can now transform the training dataset by multiplying the matrices
-X_train_lda = X_train_std.dot(w)
-colors = ['r', 'b', 'g']
-markers = ['o', 's', '^']
-for l, c, m in zip(np.unique(y_train), colors, markers):
-    plt.scatter(X_train_lda[y_train==l, 0],
-                X_train_lda[y_train==l, 1] * (-1),
-                c=c, label=f'Class {l}', marker=m)
+# X_train_lda = X_train_std.dot(w)
+# colors = ['r', 'b', 'g']
+# markers = ['o', 's', '^']
+# for l, c, m in zip(np.unique(y_train), colors, markers):
+#     plt.scatter(X_train_lda[y_train==l, 0],
+#                 X_train_lda[y_train==l, 1] * (-1),
+#                 c=c, label=f'Class {l}', marker=m)
 
 
-plt.xlabel('LD 1')
-plt.ylabel('LD 2')
-plt.legend(loc= 'lower right')
-plt.tight_layout()
-plt.show()
+# plt.xlabel('LD 1')
+# plt.ylabel('LD 2')
+# plt.legend(loc= 'lower right')
+# plt.tight_layout()
+# plt.show()
 
 # LDA via skikit-learn
 
@@ -256,20 +256,28 @@ X_train_lda= lda.fit_transform(X_train_std, y_train)
 
 
 # see how logistic regression classifier handles the lower-diminsional training dataset
-lr = LogisticRegression(multi_class='ovr', random_state=1, solver='lbfgs')
-lr = lr.fit(X_train_lda, y_train)
-plot_decision_regions(X_train_lda, y_train, classifier=lr)
-plt.xlabel('LD 1')
-plt.ylabel('LD 2')
-plt.legend(loc='lower left')
-plt.tight_layout()
-plt.show()
+# lr = LogisticRegression(multi_class='ovr', random_state=1, solver='lbfgs')
+# lr = lr.fit(X_train_lda, y_train)
+# plot_decision_regions(X_train_lda, y_train, classifier=lr)
+# plt.xlabel('LD 1')
+# plt.ylabel('LD 2')
+# plt.legend(loc='lower left')
+# plt.tight_layout()
+# plt.show()
 
-X_test_lda= lda.transform(X_test_std)
-plot_decision_regions(X_test_lda, y_test, classifier=lr)
-plt.xlabel('LD 1')
-plt.ylabel('LD 2')
-plt.legend(loc='lower left')
-plt.tight_layout()
+# X_test_lda= lda.transform(X_test_std)
+# plot_decision_regions(X_test_lda, y_test, classifier=lr)
+# plt.xlabel('LD 1')
+# plt.ylabel('LD 2')
+# plt.legend(loc='lower left')
+# plt.tight_layout()
+# plt.show()
+
+from sklearn.datasets import load_digits
+digits = load_digits()
+fig, ax = plt.subplots(1, 6)
+for i in range(6):
+    ax[i].imshow(digits.images[i], cmap='Greys')
+
 plt.show()
 
